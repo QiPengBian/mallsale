@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mapper.ListMapper">
+    <resultMap id="getListbyflbh2Mp" type="com.atguigu.bean.MallSkuVO" autoMapping="true">
+        <id column="skuid" property="id"></id>
+        <result column="shp_id" property="shpId"></result>
+        <result column="kc" property="kc"></result>
+        <result column="jg" property="jg"></result>
+        <result column="chjshj" property="chjshj"></result>
+        <result column="sku_mch" property="skuMch"></result>
+        <result column="sku_Xl" property="skuXl"></result>
+        <result column="kcdz" property="kcdz"></result>
+
+        <association property="spu" javaType="com.atguigu.bean.TMallProduct" autoMapping="true">
+            <id column="spuid" property="id"></id>
+            <result column="shp_mch" property="shpMch"></result>
+            <result column="shp_tp" property="shpTp"></result>
+            <result column="flbh1" property="flbh1"></result>
+            <result column="flbh2" property="flbh2"></result>
+            <result column="pp_id" property="ppId"></result>
+            <result column="" property="chjshj"></result>
+            <result column="shp_msh" property="shpMsh"></result>
+        </association>
+        <association property="mark" javaType="com.atguigu.bean.TMallTradeMark" autoMapping="true">
+            <id column="mkid" property="id"></id>
+            <result column="ppmch" property="ppmch"></result>
+            <result column="url" property="url"></result>
+        </association>
+    </resultMap>
+    <resultMap type="com.atguigu.bean.MallSkuVO" id="select_list_by_flbh2_map"
+               autoMapping="true">
+        <id column="sku_id" property="id"/>
+        <association property="spu" javaType="com.atguigu.bean.TMallProduct"
+                     autoMapping="true">
+            <id column="spu_id" property="id"/>
+        </association>
+        <association property="mark" javaType="com.atguigu.bean.TMallTradeMark"
+                     autoMapping="true">
+            <id column="tm_id" property="id"/>
+        </association>
+    </resultMap>
+    <select id="getListbyflbh2" resultMap="getListbyflbh2Mp" parameterType="INTEGER">
+            select spu.Id as spuid,spu.*,sku.Id as skuid,sku.*,mark.Id as mkid,mark.* from t_mall_product spu
+            LEFT JOIN t_mall_sku sku
+            ON sku.shp_id=spu.Id
+            LEFT JOIN t_mall_trade_mark mark
+            on spu.pp_id=mark.Id
+            where spu.flbh2=#{flbh2}
+        </select>
+
+    <select id="select_list_by_flbh2" parameterType="int"
+            resultMap="select_list_by_flbh2_map">
+        SELECT
+        spu.id as spu_id , spu.*,sku.id as sku_id ,sku.*,tm.id
+        as tm_id ,tm.*
+        FROM
+        t_mall_product spu,
+        t_mall_sku sku,
+        t_mall_trade_mark
+        tm
+        WHERE
+        spu.Id = sku.shp_id
+        and spu.pp_id = tm.Id
+        and spu.flbh2 =
+        #{flbh2}
+
+    </select>
+    <select id="selectSkuByAttrValue" resultMap="select_list_by_flbh2_map" parameterType="INTEGER">
+        select spu.id as spu_id , spu.*,sku.id as sku_id ,sku.*,tm.id
+		as tm_id ,tm.*
+        FROM
+	       t_mall_product spu,
+	       t_mall_sku sku,
+	       t_mall_trade_mark tm
+       WHERE
+	    spu.Id=sku.shp_id
+        and spu.pp_id=tm.Id
+      and spu.flbh2=
+      #{flbh2}
+      ${subSql}
+
+
+
+    </select>
+</mapper>

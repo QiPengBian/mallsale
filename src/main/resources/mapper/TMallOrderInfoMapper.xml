@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mapper.TMallOrderInfoMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.TMallOrderInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dd_id" jdbcType="INTEGER" property="ddId" />
+    <result column="sku_id" jdbcType="INTEGER" property="skuId" />
+    <result column="chjshj" jdbcType="TIMESTAMP" property="chjshj" />
+    <result column="sku_mch" jdbcType="VARCHAR" property="skuMch" />
+    <result column="shp_tp" jdbcType="VARCHAR" property="shpTp" />
+    <result column="sku_jg" jdbcType="DECIMAL" property="skuJg" />
+    <result column="sku_shl" jdbcType="INTEGER" property="skuShl" />
+    <result column="sku_kcdz" jdbcType="VARCHAR" property="skuKcdz" />
+    <result column="flow_id" jdbcType="INTEGER" property="flowId" />
+    <result column="gwch_id" jdbcType="INTEGER" property="gwchId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, dd_id, sku_id, chjshj, sku_mch, shp_tp, sku_jg, sku_shl, sku_kcdz, flow_id, gwch_id
+  </sql>
+  <select id="selectByExample" parameterType="com.atguigu.bean.TMallOrderInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_mall_order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_mall_order_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_mall_order_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.atguigu.bean.TMallOrderInfoExample">
+    delete from t_mall_order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.TMallOrderInfo">
+    insert into t_mall_order_info (id, dd_id, sku_id, 
+      chjshj, sku_mch, shp_tp, 
+      sku_jg, sku_shl, sku_kcdz, 
+      flow_id, gwch_id)
+    values (#{id,jdbcType=INTEGER}, #{ddId,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, 
+      #{chjshj,jdbcType=TIMESTAMP}, #{skuMch,jdbcType=VARCHAR}, #{shpTp,jdbcType=VARCHAR}, 
+      #{skuJg,jdbcType=DECIMAL}, #{skuShl,jdbcType=INTEGER}, #{skuKcdz,jdbcType=VARCHAR}, 
+      #{flowId,jdbcType=INTEGER}, #{gwchId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.bean.TMallOrderInfo">
+    insert into t_mall_order_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="ddId != null">
+        dd_id,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="chjshj != null">
+        chjshj,
+      </if>
+      <if test="skuMch != null">
+        sku_mch,
+      </if>
+      <if test="shpTp != null">
+        shp_tp,
+      </if>
+      <if test="skuJg != null">
+        sku_jg,
+      </if>
+      <if test="skuShl != null">
+        sku_shl,
+      </if>
+      <if test="skuKcdz != null">
+        sku_kcdz,
+      </if>
+      <if test="flowId != null">
+        flow_id,
+      </if>
+      <if test="gwchId != null">
+        gwch_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ddId != null">
+        #{ddId,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="chjshj != null">
+        #{chjshj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skuMch != null">
+        #{skuMch,jdbcType=VARCHAR},
+      </if>
+      <if test="shpTp != null">
+        #{shpTp,jdbcType=VARCHAR},
+      </if>
+      <if test="skuJg != null">
+        #{skuJg,jdbcType=DECIMAL},
+      </if>
+      <if test="skuShl != null">
+        #{skuShl,jdbcType=INTEGER},
+      </if>
+      <if test="skuKcdz != null">
+        #{skuKcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="flowId != null">
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="gwchId != null">
+        #{gwchId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.bean.TMallOrderInfoExample" resultType="java.lang.Long">
+    select count(*) from t_mall_order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_mall_order_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ddId != null">
+        dd_id = #{record.ddId,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuId != null">
+        sku_id = #{record.skuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.chjshj != null">
+        chjshj = #{record.chjshj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.skuMch != null">
+        sku_mch = #{record.skuMch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shpTp != null">
+        shp_tp = #{record.shpTp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skuJg != null">
+        sku_jg = #{record.skuJg,jdbcType=DECIMAL},
+      </if>
+      <if test="record.skuShl != null">
+        sku_shl = #{record.skuShl,jdbcType=INTEGER},
+      </if>
+      <if test="record.skuKcdz != null">
+        sku_kcdz = #{record.skuKcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flowId != null">
+        flow_id = #{record.flowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gwchId != null">
+        gwch_id = #{record.gwchId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_mall_order_info
+    set id = #{record.id,jdbcType=INTEGER},
+      dd_id = #{record.ddId,jdbcType=INTEGER},
+      sku_id = #{record.skuId,jdbcType=INTEGER},
+      chjshj = #{record.chjshj,jdbcType=TIMESTAMP},
+      sku_mch = #{record.skuMch,jdbcType=VARCHAR},
+      shp_tp = #{record.shpTp,jdbcType=VARCHAR},
+      sku_jg = #{record.skuJg,jdbcType=DECIMAL},
+      sku_shl = #{record.skuShl,jdbcType=INTEGER},
+      sku_kcdz = #{record.skuKcdz,jdbcType=VARCHAR},
+      flow_id = #{record.flowId,jdbcType=INTEGER},
+      gwch_id = #{record.gwchId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.TMallOrderInfo">
+    update t_mall_order_info
+    <set>
+      <if test="ddId != null">
+        dd_id = #{ddId,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="chjshj != null">
+        chjshj = #{chjshj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skuMch != null">
+        sku_mch = #{skuMch,jdbcType=VARCHAR},
+      </if>
+      <if test="shpTp != null">
+        shp_tp = #{shpTp,jdbcType=VARCHAR},
+      </if>
+      <if test="skuJg != null">
+        sku_jg = #{skuJg,jdbcType=DECIMAL},
+      </if>
+      <if test="skuShl != null">
+        sku_shl = #{skuShl,jdbcType=INTEGER},
+      </if>
+      <if test="skuKcdz != null">
+        sku_kcdz = #{skuKcdz,jdbcType=VARCHAR},
+      </if>
+      <if test="flowId != null">
+        flow_id = #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="gwchId != null">
+        gwch_id = #{gwchId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.TMallOrderInfo">
+    update t_mall_order_info
+    set dd_id = #{ddId,jdbcType=INTEGER},
+      sku_id = #{skuId,jdbcType=INTEGER},
+      chjshj = #{chjshj,jdbcType=TIMESTAMP},
+      sku_mch = #{skuMch,jdbcType=VARCHAR},
+      shp_tp = #{shpTp,jdbcType=VARCHAR},
+      sku_jg = #{skuJg,jdbcType=DECIMAL},
+      sku_shl = #{skuShl,jdbcType=INTEGER},
+      sku_kcdz = #{skuKcdz,jdbcType=VARCHAR},
+      flow_id = #{flowId,jdbcType=INTEGER},
+      gwch_id = #{gwchId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
